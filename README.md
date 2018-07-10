@@ -1,5 +1,5 @@
 # ArtTree
-An evolutionary algoritm to build a really basic tree.
+An evolutionary algorithm to build a really basic tree.
 
 I was inspired by [this project](https://magenta.as/why-i-used-an-evolutionary-algorithm-to-create-pixel-art-ba530e71c5e9) 
 developed and beautifully documented by William Anderson and I wanted to see what can I hack in a day. 
