@@ -7,6 +7,12 @@ This is a VERY simple EA implementation for growing a tree.
 
 ![500 generations](img/gen500.gif)
 
+Each tree starts as a set of random features that represent leaves, pieces of wood, or roots. A pruning function 
+cleans out the features according to the following rules:
+* a wood feature must be supported by another wood feature under it
+* a leaf must have a wood feature as a neighbor
+* a root feature must have a connecting root feature above it 
+
 All evolutionary algorithms, after initialization, rely on two major operations:
 * Create a generation of trees through some method of reproduction
 * Select survivors based on some fitness function
