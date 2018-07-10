@@ -5,39 +5,28 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-public class TreeEvolver {
+class TreeEvolver {
 
-    public List<Tree> generation;
+    private List<Tree> generation;
     int generationSize;
 
 
-    public TreeEvolver(int population) {
+    TreeEvolver(int population, int width, int height) {
         generationSize = population;
 
-        generation = new ArrayList<>(generationSize);
+        generation = new ArrayList<>();
         for (int j = 0; j < generationSize; j++) {
-            generation.add(new Tree(0.1, 0.3));
+            generation.add(new Tree(width, height, 0.1, 0.3, 0.01));
         }
 
     }
 
-    public void evolve(int generations, int cutoff, double noiseFactor) {
-
-        for (int i = 0; i < generations; i++) {
+    void evolve(double cutoffFactor, double noiseFactor) {
 
 
-            generation.sort(Comparator.comparing(Tree::getScore));
+            ArrayList<Tree> survivors = selectSurvivors(cutoffFactor);
 
-            ArrayList<Tree> survivors = new ArrayList<>();
-
-            for (int s = 0; s < cutoff; s++) {
-                if (s == 0) {
-                    System.out.println("Max Gen "+ i +" Score: " + generation.get(generationSize - 1).getScore());
-                }
-                survivors.add(generation.get(generationSize - 1 - s));
-            }
-
-            generation = new ArrayList<>(generationSize);
+            generation = new ArrayList<>();
 
             Random rand = new Random();
             for (int j = 0; j < generationSize; j++) {
@@ -49,9 +38,20 @@ public class TreeEvolver {
                 generation.add(t);
             }
 
+
+    }
+
+    ArrayList<Tree> selectSurvivors(double cutoffFactor) {
+
+        generation.sort(Comparator.comparing(Tree::getScore));
+
+        ArrayList<Tree> survivors = new ArrayList<>();
+
+        for (int s = 0; s < cutoffFactor * generationSize; s++) {
+            survivors.add(generation.get(generationSize - 1 - s));
         }
 
-
+        return survivors;
     }
 
 }
